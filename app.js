@@ -38,6 +38,24 @@ global.env = process.env.NODE_ENV || 'production';
 // Alternate configuration file support
 const configFile = path.resolve(__dirname, nconf.any(['config', 'CONFIG']) || 'config.json');
 
+//Grab config data from the docker-compose file
+if(process.env.MONGO_HOST){
+	nconf.set('database', 'mongo');
+	nconf.set('mongo:host', process.env.MONGO_HOST);
+}
+if(process.env.MONGO_PORT){
+	nconf.set('mongo:port', process.env.MONGO_PORT);
+}
+if(process.env.MONGO_DATABASE){
+	nconf.set('mongo:database', process.env.MONGO_DATABASE);
+}
+if(process.env.MONGO_URI){
+	nconf.set('mongo:uri', process.env.MONGO_URI);
+}
+if(process.env.SECRET){
+	nconf.set('secret', process.env.SECRET);
+}
+
 const configExists = file.existsSync(configFile) || (nconf.get('url') && nconf.get('secret') && nconf.get('database'));
 
 const prestart = require('./src/prestart');

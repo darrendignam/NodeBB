@@ -1,24 +1,66 @@
 version: '3.5'
 
 services:
-  node:
-    build: .
+  nodebb:
+    image: nodebb/docker:latest
     restart: unless-stopped
     depends_on:
-      - db
-    expose:
-      - 4567 # use a reverse proxy like Traefik
-
-  db:
-    image: mongo:bionic
-    restart: unless-stopped
-    expose:
-      - 27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      - nodebb_db
+    ports:
+      - "4567:4567" # use a reverse proxy like Traefik
     volumes:
-      - mongo:/data/db
+      # - ./VOLUMES/config:/opt/nodebb/config
+      - ./VOLUMES/build:/usr/src/app/build
+      - ./VOLUMES/uploads:/usr/src/app/public/uploads
+
+
+  nodebb_db:
+    image: mongo:latest
+    restart: unless-stopped
+    hostname: nodebb_db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=nodebb
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=DVHCHT2VzH6AbDHdMnF7rfUF5Du4sc
+    volumes:
+      # - ./VOLUMES/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./VOLUMES/mongo:/data/db
+
+
+  mongoclient:
+    image: mongoclient/mongoclient:latest
+    container_name: mongoclient
+    hostname: mongoclient
+    depends_on:
+      - nodebb_db
+    # networks:
+    #   - mongodb_net
+    ports:
+      - 3300:3000
 
 volumes:
+  config:
+  build:
+  uploads:
   mongo:
+
+
+# useraccount for the webapp:    darren:Jw6tXj3ehotWvTUmw7eBEYdVhTuqGs
+
+##### on the app server:
+# ./nodebb setup
+# follow instructions
+# mongodb://root:DVHCHT2VzH6AbDHdMnF7rfUF5Du4sc@nodebb_db:27017?ssl=false
+
+
+
+
+
+# mongo -u admin -p DVHCHT2VzH6AbDHdMnF7rfUF5Du4sc --authenticationDatabase=admin
+###### on the mongo server.....
+# use admin
+# db.createUser( { user: "root", pwd: "DVHCHT2VzH6AbDHdMnF7rfUF5Du4sc", roles: [ { role: "readWriteAnyDatabase", db: "admin" }
+# use nodebb
+# db.createUser( { user: "root", pwd: "DVHCHT2VzH6AbDHdMnF7rfUF5Du4sc", roles: [ { role: "readWrite", db: "nodebb" }, { role: "clusterMonitor", db: "admin" } ] } )

@@ -23,6 +23,9 @@ feeds/recent.rss
 
 logs/
 
+#docker-compose
+VOLUMES/
+
 pidfile
 
 # templates

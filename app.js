@@ -39,7 +39,9 @@ global.env = process.env.NODE_ENV || 'production';
 const configFile = path.resolve(__dirname, nconf.any(['config', 'CONFIG']) || 'config.json');
 
 //Grab config data from the docker-compose file
+winston.info('Checking for database ENV')
 if(process.env.MONGO_HOST){
+	winston.info('Found mongodb config')
 	nconf.set('database', 'mongo');
 	nconf.set('mongo:host', process.env.MONGO_HOST);
 }

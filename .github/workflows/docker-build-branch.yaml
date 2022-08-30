@@ -46,11 +46,11 @@ jobs:
         with:
           images: | 
             darrenopf/nodebb:docker_compose_env
-            ghcr.io/${{ github.repository }}:docker_compose_env
+            ghcr.io/${{ github.repository }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=raw,value=latest
+            type=raw,value=docker_compose_env
 
 
 

@@ -2,12 +2,18 @@ version: '3.5'
 
 services:
   nodebb:
-    image: nodebb/docker:latest
+    image: darrenopf/nodebb:docker_compose_env
     restart: unless-stopped
     depends_on:
       - nodebb_db
     ports:
-      - "4567:4567" # use a reverse proxy like Traefik
+      - "5566:4567" # use a reverse proxy like Traefik
+    environment:
+      - MONGO_HOST=nodebb_db
+      - MONGO_PORT=27017
+      - MONGO_DATABASE=nodebb
+      - MONGO_URI=mongodb://root:superstrongpassword@nodebb_db:27017?ssl=false
+      - SECRET=secret-JAbJ-B48f-Emoy-dpJ8-HPgZ-aygG-dSdp
     volumes:
       # - ./VOLUMES/config:/opt/nodebb/config
       - ./VOLUMES/build:/usr/src/app/build
@@ -19,11 +25,11 @@ services:
     restart: unless-stopped
     hostname: nodebb_db
     ports:
-      - "27017:27017"
+      - "27217:27017"
     environment:
       - MONGO_INITDB_DATABASE=nodebb
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=DVHCHT2VzH6AbDHdMnF7rfUF5Du4sc
+      - MONGO_INITDB_ROOT_PASSWORD=superstrongpassword
     volumes:
       # - ./VOLUMES/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - ./VOLUMES/mongo:/data/db
@@ -31,14 +37,14 @@ services:
 
   mongoclient:
     image: mongoclient/mongoclient:latest
-    container_name: mongoclient
+    # container_name: mongoclient
     hostname: mongoclient
     depends_on:
       - nodebb_db
     # networks:
     #   - mongodb_net
     ports:
-      - 3300:3000
+      - 3303:3000
 
 volumes:
   config:

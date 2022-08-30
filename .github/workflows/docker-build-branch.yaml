@@ -45,7 +45,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: | 
-            darrenopf/nodebb:docker_compose_env
+            darrenopf/nodebb
             ghcr.io/${{ github.repository }}
           tags: |
             type=semver,pattern={{version}}

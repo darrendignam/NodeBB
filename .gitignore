@@ -25,6 +25,8 @@ logs/
 
 pidfile
 
+charts/**/charts
+
 # templates
 /public/templates
 

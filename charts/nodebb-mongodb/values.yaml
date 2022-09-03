@@ -76,16 +76,6 @@ mongodb:
 
 
 
-  # # mongodb User to create
-  # mongodbUsername: keycloak
-  # # mongodb Password for the new user
-  # mongodbPassword: keycloak
-  # # mongodb Database to create
-  # mongodbDatabase: keycloak
-  # # mongodb network policy configuration
-  # networkPolicy:
-  #   enabled: false
-
 
 
 resources: {}

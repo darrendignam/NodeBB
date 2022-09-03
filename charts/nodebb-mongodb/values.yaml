@@ -69,18 +69,24 @@ ingress:
   #      - chart-example.local
 
 
-postgresql:
+mongodb:
   # If `true`, the mongodb dependency is enabled
   enabled: true
-  # mongodb User to create
-  mongodbUsername: keycloak
-  # mongodb Password for the new user
-  mongodbPassword: keycloak
-  # mongodb Database to create
-  mongodbDatabase: keycloak
-  # mongodb network policy configuration
-  networkPolicy:
-    enabled: false
+  architecture: standalone
+
+
+
+  # # mongodb User to create
+  # mongodbUsername: keycloak
+  # # mongodb Password for the new user
+  # mongodbPassword: keycloak
+  # # mongodb Database to create
+  # mongodbDatabase: keycloak
+  # # mongodb network policy configuration
+  # networkPolicy:
+  #   enabled: false
+
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

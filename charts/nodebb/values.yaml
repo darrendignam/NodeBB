@@ -69,26 +69,26 @@ ingress:
   #      - chart-example.local
 
 
-mongodb:
-  # If `true`, the mongodb dependency is enabled
-  enabled: true
-  architecture: standalone
-  # auth:
-  #   enabled: true
-  #   rootUser: root
-  #   rootPassword: ""
-  # replicaCount: 1
+# mongodb:
+#   # If `true`, the mongodb dependency is enabled
+#   enabled: true
+#   architecture: standalone
+#   # auth:
+#   #   enabled: true
+#   #   rootUser: root
+#   #   rootPassword: ""
+#   # replicaCount: 1
 
 
-  # # mongodb User to create
-  # mongodbUsername: keycloak
-  # # mongodb Password for the new user
-  # mongodbPassword: keycloak
-  # # mongodb Database to create
-  # mongodbDatabase: keycloak
-  # # mongodb network policy configuration
-  # networkPolicy:
-  #   enabled: false
+#   # # mongodb User to create
+#   # mongodbUsername: keycloak
+#   # # mongodb Password for the new user
+#   # mongodbPassword: keycloak
+#   # # mongodb Database to create
+#   # mongodbDatabase: keycloak
+#   # # mongodb network policy configuration
+#   # networkPolicy:
+#   #   enabled: false
 
 
 

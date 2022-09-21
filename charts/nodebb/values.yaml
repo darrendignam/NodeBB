@@ -10,6 +10,20 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+persistence:
+  ## @param persistence.enabled Enable data persistence using PVC
+  enabled: true
+  ## @param persistence.existingClaim Provide an existing `PersistentVolumeClaim`
+  existingClaim: ""
+  ## @param persistence.storageClass PVC Storage Class
+  storageClass: ""
+  ## @param persistence.accessModes PV Access Mode
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+  ## @param persistence.mountPath Path to mount the volume at
+  mountPath: /usr/src/app
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

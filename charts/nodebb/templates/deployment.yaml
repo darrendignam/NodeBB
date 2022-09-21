@@ -34,7 +34,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            {{- toYaml .Values.volumeMounts | default "" | nindent 12 }}
+            - name: datadir
+              mountPath: {{ .Values.persistence.mountPath }}
+            # {{- toYaml .Values.volumeMounts | default "" | nindent 12 }}
           ports:
             - name: http
               containerPort: 4567
@@ -50,7 +52,22 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        {{- toYaml .Values.volumes | default "" | nindent 8 }} 
+  {{- if not .Values.persistence.enabled }}
+        - name: datadir
+          {{- if .Values.persistence.medium }}
+          emptyDir:
+            medium: {{ .Values.persistence.medium | quote }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+  {{- else if .Values.persistence.existingClaim }}
+        - name: datadir
+          persistentVolumeClaim:
+            claimName: {{ printf "%s" (tpl .Values.persistence.existingClaim .) }}
+  {{- else }}
+
+
+        # {{- toYaml .Values.volumes | default "" | nindent 8 }} 
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

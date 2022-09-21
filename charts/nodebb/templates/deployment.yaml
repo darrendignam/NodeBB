@@ -65,8 +65,6 @@ spec:
           persistentVolumeClaim:
             claimName: {{ printf "%s" (tpl .Values.persistence.existingClaim .) }}
   {{- else }}
-
-
         # {{- toYaml .Values.volumes | default "" | nindent 8 }} 
       {{- with .Values.nodeSelector }}
       nodeSelector:

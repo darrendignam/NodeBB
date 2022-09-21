@@ -36,7 +36,6 @@ spec:
           volumeMounts:
             - name: datadir
               mountPath: {{ .Values.persistence.mountPath }}
-            # {{- toYaml .Values.volumeMounts | default "" | nindent 12 }}
           ports:
             - name: http
               containerPort: 4567

@@ -3,9 +3,9 @@ name: Run Docker Build with ENV
 # Controls when the workflow will run
 on:
   push:
-    branches:
-      - 'helm-chart'
-      - 'v*.x'
+    # branches:
+    #   - 'helm-chart'
+    #   - 'v*.x'
     tags:
       - 'v*'
   workflow_dispatch:

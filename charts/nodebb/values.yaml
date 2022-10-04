@@ -5,7 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nodebb/docker
+  repository: darrenopf/nodebb:helm-chart
+  # repository: nodebb/docker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -73,7 +74,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
+    - host: chart-nodebb.local
       paths:
         - path: /
           pathType: ImplementationSpecific

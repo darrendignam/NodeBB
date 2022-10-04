@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: darrenopf/nodebb:helm-chart
+  repository: darrenopf/nodebb
   # repository: nodebb/docker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.

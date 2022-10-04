@@ -37,8 +37,6 @@ spec:
             - name: datadir
               mountPath: {{ .Values.persistence.mountPath }}
               # subPath: {{ .Values.persistence.subPath }}
-            - name: uploadsdir
-              mountPath: {{ .Values.persistence.mountPathUploads }}              
           ports:
             - name: http
               containerPort: 4567
@@ -66,9 +64,6 @@ spec:
         - name: datadir
           persistentVolumeClaim:
             claimName: {{ printf "%s" (tpl .Values.persistence.existingClaim .) }}
-        - name: uploadsdir
-          persistentVolumeClaim:
-            claimName: {{ printf "%s" (tpl .Values.persistence.existingClaimUploads .) }}
   {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

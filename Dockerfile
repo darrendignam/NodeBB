@@ -24,8 +24,9 @@ EXPOSE 4567
 
 # make it easier to use with kubernetes
 VOLUME /usr/src/app/docker
-VOLUME /usr/src/app/public/uploads
+# VOLUME /usr/src/app/public/uploads
 # save the config in a volume so the container can be discarded
 RUN ln -s /usr/src/app/docker/config.json /usr/src/app/config.json
+RUN ln -s /usr/src/app/docker/public/uploads /usr/src/app/public/uploads
 
 CMD test -n "${SETUP}" && ./nodebb setup || node ./nodebb build; node ./nodebb start
